@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, SafeAreaView, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, SafeAreaView} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {useDispatch, useSelector} from 'react-redux';
 import {addClip, deleteClip} from '../store/actions/user';
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ArticleScreen = (props) => {
+export default function ArticleScreen(props) {
   const {route} = props;
   const {article} = route.params;
 
@@ -36,11 +36,13 @@ export default ArticleScreen = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <ClipButton onPress={toggleClip} enabled={isClipped()} />
-		  <WebView
-			  source={{ uri: article.url }}
-			  startInLoadingState={true}
-			  renderLoading={() => <Loading />}
-		  />
+      <WebView
+        source={{uri: article.url}}
+        startInLoadingState={true}
+        renderLoading={() => {
+          return <Loading />;
+        }}
+      />
     </SafeAreaView>
   );
-};
+}
